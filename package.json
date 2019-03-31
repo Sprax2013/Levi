@@ -1,0 +1,19 @@
+{
+  "name": "levi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Sprax2013",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "uws": "^100.0.1"
+  }
+}
