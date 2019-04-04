@@ -7,7 +7,7 @@ class LeviGuild {
      * @param {Addon[]} enabledAddon The addonst that are enabled
      */
     constructor(guild, addons = [], enabledAddon = []) {
-        this.guild = guild;
+        this._guild = guild;
 
         this.addons = addons;
         this.enabledAddon = enabledAddon;
@@ -18,7 +18,7 @@ class LeviGuild {
      * @returns {Discord.Guild} The associated guild
      */
     get guild() {
-        return this.guild;
+        return this._guild;
     }
 }
 
@@ -30,7 +30,7 @@ class Addon {
      * @param {Object} defaultData The default data to set for an guild (if any)
      */
     constructor(id, name, author, defaultData = {}) {
-        this.id = id;
+        this._id = id;
 
         this.name = name;
         this.author = (typeof author === 'string') ? [author] : author;
@@ -43,6 +43,36 @@ class Addon {
      * @returns {string} Unique ID
      */
     get id() {
-        return this.id;
+        return this._id;
     }
+}
+
+class AddonTemplate {
+    constructor(id, name, defaultData = {}) {
+        this._id = id;
+
+        this._name = name;
+
+        this._defaultData = defaultData;
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    get name() {
+        return this.name;
+    }
+
+    get defaultData() {
+        return this._defaultData;
+    }
+}
+
+module.exports.AddonTemplates = {
+    COMMAND: new AddonTemplate(1, 'Template: Command', { name: 'Befehl-Bezeichnung', commands: ['command', 'cmd'] })
+};
+
+if (require('./files').cfg['Token'] === '') {
+
 }
