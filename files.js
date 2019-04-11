@@ -6,13 +6,15 @@ module.exports.cfg = require('./storage/config.json');
 
 /* Functions */
 function initStorage() {
+    const fs = require('fs');
+
     if (!fs.existsSync('./storage/')) {
         mkdirs('./storage/');
     }
 
     if (!fs.existsSync('./storage/config.json')) {
         fs.writeFileSync('./storage/config.json', JSON.stringify({
-            Token: 'Insert-Discord-Bot-Token'
+            BotToken: 'Discord-Bot-Token'
         }, null, 4));
     }
 }
@@ -21,6 +23,9 @@ function mkdirs(dirPath, callback) {
     if (typeof dirPath === 'function') {
         dirPath = dirPath();
     }
+
+    const fs = require('fs');
+    const path = require('path');
 
     dirPath = path.resolve(dirPath);
 
