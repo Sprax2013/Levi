@@ -15,7 +15,6 @@
   "author": "Sprax2013",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "uws": "^100.0.1"
+    "discord.js": "^11.4.2"
   }
 }
