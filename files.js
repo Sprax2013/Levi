@@ -1,13 +1,15 @@
+
+const fs = require('fs');
+
 initStorage();
 
 module.exports.mkdirs = mkdirs;
+
 module.exports.cfg = require('./storage/config.json');
 
 
 /* Functions */
 function initStorage() {
-    const fs = require('fs');
-
     if (!fs.existsSync('./storage/')) {
         mkdirs('./storage/');
     }
