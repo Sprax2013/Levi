@@ -6,17 +6,18 @@ class LeviGuild {
      * 
      * @param {Object} settings Guild's settings
      * @param {boolean} settings.ignoreBots Should messages by bots be ignored
+     * @param {boolean} settings.deletedSince When was the Bot removed from a guild (A clean-up task deletes old LeviGuilds)
      * 
      * @param {Addon[]} addons The addons that are enabled or disabled
-     * @param {Addon[]} enabledAddon The addonst that are enabled
+     * @param {Addon[]} enabledAddons The addonst that are enabled
      */
-    constructor(guild, settings = {}, addons = [], enabledAddon = []) {
+    constructor(guild, settings = {}, addons = [], enabledAddons = []) {
         this._guild = guild;
 
         this.settings = settings;
 
         this.addons = addons;
-        this.enabledAddon = enabledAddon;
+        this.enabledAddons = enabledAddons;
     }
 
     /**
@@ -74,6 +75,8 @@ class AddonTemplate {
         return this._defaultData;
     }
 }
+
+module.exports = { LeviGuild, Addon, AddonTemplate };
 
 /* Templates */
 

@@ -1,9 +1,12 @@
+const Discord = require('discord.js');
+const Levi = require('./classes');
 
 const fs = require('fs');
+const steno = require('steno');
 
 initStorage();
 
-module.exports.mkdirs = mkdirs;
+module.exports = { getLeviGuilds, storeLeviGuilds, mkdirs };
 
 module.exports.cfg = require('./storage/config.json');
 
@@ -56,4 +59,54 @@ function mkdirs(dirPath, callback) {
 
         return false;
     }
+}
+
+/* . . . */
+
+function getLeviGuilds(client) {
+    let result = new Discord.Collection();
+
+    if (fs.existsSync('./storage/LeviGuilds.json')) {
+        let json = JSON.parse(fs.readFileSync('./storage/LeviGuilds.json'));
+
+        for (const guildID in json) {
+            if (json.hasOwnProperty(guildID)) {
+                let elem = json[guildID];
+
+                result.set(guildID, new Levi.LeviGuild(client.guilds.get(guildID), elem.settings, elem.addons, elem.enabledAddons))
+            }
+        }
+    }
+
+    return result;
+}
+
+/**
+ * 
+ * @param {Discord.Collection<String, LeviGuild>} leviGuilds 
+ */
+function storeLeviGuilds(leviGuilds) {
+    let json = {};
+
+    for (const entry of leviGuilds.keys()) {
+        let lGuild = leviGuilds.get(entry);
+
+        json[entry] = {
+            settings: lGuild.settings,
+            addons: lGuild.addons,
+            enabledAddons: lGuild.enabledAddons
+        };
+    }
+
+    let data = JSON.stringify(json);
+
+    if (!fs.existsSync('./storage/')) {
+        mkdirs('./storage/');
+    }
+
+    steno.writeFile('./storage/LeviGuilds.json', data, (err) => {
+        if (err) {
+            throw err;
+        }
+    });
 }
